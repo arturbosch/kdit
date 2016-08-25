@@ -33,12 +33,16 @@ fun EditorPane.registerShortKeys() {
 			consume(EventPattern.keyPressed(KeyCode.ESCAPE)) {
 				tabPane.switchFocus()
 			},
-			consume(EventPattern.keyPressed(KeyCode.S, KeyCombination.CONTROL_DOWN)) {
-			},
 			consume(EventPattern.keyPressed(KeyCode.O, KeyCombination.CONTROL_DOWN)) {
 				ProjectChooser.openFile().ifPresent {
 					tabPane.newTab(it)
 				}
+			},
+			consume(EventPattern.keyPressed(KeyCode.S, KeyCombination.CONTROL_DOWN)) {
+				tabPane.saveTab()
+			},
+			consume(EventPattern.keyPressed(KeyCode.A, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN)) {
+				tabPane.saveAsNewPath()
 			},
 			consume(EventPattern.keyPressed(KeyCode.O, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN)) {
 				println(ProjectChooser.openDir())

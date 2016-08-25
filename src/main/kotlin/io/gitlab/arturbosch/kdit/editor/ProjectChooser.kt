@@ -16,6 +16,11 @@ object ProjectChooser {
 				.map { it.toPath() }
 	}
 
+	fun chooseFile(): Optional<Path> {
+		return Optional.ofNullable(FileChooser().showSaveDialog(FX.primaryStage))
+				.map { it.toPath() }
+	}
+
 	fun openDir(): Optional<Path> {
 		return Optional.ofNullable(DirectoryChooser().showDialog(FX.primaryStage))
 				.map { it.toPath() }

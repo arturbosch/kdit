@@ -1,6 +1,5 @@
 package io.gitlab.arturbosch.kdit.editor
 
-import io.gitlab.arturbosch.kdit.highlightings.sampleCode
 import javafx.scene.control.Tab
 import javafx.scene.control.TabPane
 import java.nio.file.Path
@@ -12,7 +11,6 @@ class EditorPane : TabPane() {
 
 	init {
 		registerShortKeys()
-		editorTab(name = "Test", content = sampleCode)
 	}
 
 	fun switchTabLeft() {
@@ -51,4 +49,17 @@ class EditorPane : TabPane() {
 	fun newTab(path: Path) {
 		focus(editorTab(path = path))
 	}
+
+	fun saveTab() {
+		findOpenTab().save()
+	}
+
+	fun saveAsNewPath() {
+		findOpenTab().saveAs()
+	}
+
+	private fun findOpenTab(): EditorTab {
+		return selectionModel.selectedItem as EditorTab
+	}
+
 }

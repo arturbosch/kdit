@@ -21,8 +21,6 @@ class Editor : View() {
 			editorPane = this
 			VBox.setVgrow(this, Priority.ALWAYS)
 		}
-	}.apply {
-		stylesheets.add("java-keywords.css")
 	}
 
 }

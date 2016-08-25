@@ -12,7 +12,7 @@ internal val PAREN_PATTERN = "\\(|\\)"
 internal val BRACE_PATTERN = "\\{|\\}"
 internal val BRACKET_PATTERN = "\\[|\\]"
 internal val SEMICOLON_PATTERN = "\\;"
-internal val STRING_PATTERN = "\"([^\"\\\\]|\\\\.)*\""
+internal val STRING_PATTERN = "\"([^\"\\\\]|\\\\.)*\"" + "|" + "\'([^\"\\\\]|\\\\.)*\'"
 internal val COMMENT_PATTERN = "//[^\n]*" + "|" + "/\\*(.|\\R)*?\\*/"
 
 val PATTERN: Pattern = Pattern.compile(
@@ -23,5 +23,3 @@ val PATTERN: Pattern = Pattern.compile(
 				+ "|(?<SEMICOLON>" + SEMICOLON_PATTERN + ")"
 				+ "|(?<STRING>" + STRING_PATTERN + ")"
 				+ "|(?<COMMENT>" + COMMENT_PATTERN + ")")
-
-val sampleCode = arrayOf("package com.example;", "", "import java.util.*;", "", "public class Foo extends Bar implements Baz {", "", "    /*", "     * multi-line comment", "     */", "    public static void main(String[] args) {", "        // single-line comment", "        for(String arg: args) {", "            if(arg.length() != 0)", "                System.out.println(arg);", "            else", "                System.err.println(\"Warning: empty string as argument\");", "        }", "    }", "", "}").joinToString("\n")
