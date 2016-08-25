@@ -1,4 +1,4 @@
-package io.gitlab.arturbosch.kdit.highlightings
+package io.gitlab.arturbosch.kdit.highlightings.syntax
 
 import java.util.regex.Pattern
 
@@ -15,7 +15,7 @@ internal val SEMICOLON_PATTERN = "\\;"
 internal val STRING_PATTERN = "\"([^\"\\\\]|\\\\.)*\"" + "|" + "\'([^\"\\\\]|\\\\.)*\'"
 internal val COMMENT_PATTERN = "//[^\n]*" + "|" + "/\\*(.|\\R)*?\\*/"
 
-val PATTERN: Pattern = Pattern.compile(
+val JAVA_PATTERN: Pattern = Pattern.compile(
 		"(?<KEYWORD>" + KEYWORD_PATTERN + ")"
 				+ "|(?<PAREN>" + PAREN_PATTERN + ")"
 				+ "|(?<BRACE>" + BRACE_PATTERN + ")"

@@ -9,11 +9,14 @@ import java.nio.file.Path
 object StyleSheets {
 
 	val javaStyle: Lazy<String> = lazy { javaClass.getResource("/java-keywords.css").toExternalForm() }
+	val xmlStyle: Lazy<String> = lazy { javaClass.getResource("/xml-keywords.css").toExternalForm() }
 
 	fun get(path: Path): String? {
-		return if (path.toString().endsWith("java"))
-			javaStyle.value
-		else null
+		return when (path.toString().substringAfterLast(".")) {
+			"java" -> javaStyle.value
+			"xml" -> xmlStyle.value
+			else -> null
+		}
 	}
 
 }

@@ -1,7 +1,7 @@
 package io.gitlab.arturbosch.kdit.editor
 
 import io.gitlab.arturbosch.kdit.highlightings.StyleSheets
-import io.gitlab.arturbosch.kdit.highlightings.computeHighlighting
+import io.gitlab.arturbosch.kdit.highlightings.syntax
 import javafx.scene.control.Tab
 import javafx.scene.control.Tooltip
 import javafx.scene.layout.StackPane
@@ -40,8 +40,7 @@ class EditorTab(name: String = "New Tab..", content: String = "",
 	private fun initCodeArea(content: String) {
 		codeArea.apply {
 			paragraphGraphicFactory = LineNumberFactory.get(this)
-			addStyleSheetIfAvailableForPath(path)
-			enableHighlighting()
+			enableHighlighting(path)
 			registerShortKeys()
 			isEditable = editable
 			replaceText(content)
@@ -50,13 +49,16 @@ class EditorTab(name: String = "New Tab..", content: String = "",
 		requestFocus()
 	}
 
-	private fun CodeArea.enableHighlighting() {
-		richChanges().filter { ch -> ch.inserted != ch.removed }
-				.subscribe { change -> this.setStyleSpans(0, computeHighlighting(this.text)) }
-	}
-
-	private fun CodeArea.addStyleSheetIfAvailableForPath(path: Path?) {
-		path?.run { StyleSheets.get(path)?.run { stylesheets.add(this) } }
+	private fun CodeArea.enableHighlighting(path: Path?) {
+		path?.run {
+			// if style for path is found, add syntax
+			StyleSheets.get(path)?.run {
+				stylesheets.add(this)
+				richChanges()
+						.filter { ch -> ch.inserted != ch.removed }
+						.subscribe { change -> setStyleSpans(0, syntax(text, path)) }
+			}
+		}
 	}
 
 	private fun loadCodeArea(path: Path) {
