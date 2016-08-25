@@ -2,6 +2,9 @@ package io.gitlab.arturbosch.kdit.editor
 
 import javafx.scene.control.Tab
 import javafx.scene.control.TabPane
+import tornadofx.fail
+import tornadofx.success
+import tornadofx.task
 import java.nio.file.Path
 
 /**
@@ -47,7 +50,15 @@ class EditorPane : TabPane() {
 	}
 
 	fun newTab(path: Path) {
-		focus(editorTab(path = path))
+		task {
+			EditorTab(path = path)
+		} success {
+			tabs.add(it)
+			focus(it)
+			println("Successful opened tab for $path")
+		} fail {
+			println("Failed to open tab for $path")
+		}
 	}
 
 	fun saveTab() {

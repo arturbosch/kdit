@@ -1,5 +1,6 @@
 package io.gitlab.arturbosch.kdit.editor
 
+import javafx.application.Platform
 import javafx.event.EventTarget
 import javafx.scene.control.TabPane
 import tornadofx.opcr
@@ -18,4 +19,8 @@ fun TabPane.editorTab(name: String = "", content: String = "",
 	tabs.add(tab)
 	op?.invoke(tab)
 	return tab
+}
+
+fun ui(func: () -> Unit) = {
+	Platform.runLater(func)
 }

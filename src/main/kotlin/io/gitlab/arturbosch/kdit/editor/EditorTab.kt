@@ -2,7 +2,6 @@ package io.gitlab.arturbosch.kdit.editor
 
 import io.gitlab.arturbosch.kdit.highlightings.StyleSheets
 import io.gitlab.arturbosch.kdit.highlightings.computeHighlighting
-import javafx.beans.value.ObservableBooleanValue
 import javafx.scene.control.Tab
 import javafx.scene.control.Tooltip
 import javafx.scene.layout.StackPane
