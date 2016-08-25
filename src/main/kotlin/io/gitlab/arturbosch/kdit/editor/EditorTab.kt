@@ -20,7 +20,7 @@ import java.nio.file.Path
  * @author Artur Bosch
  */
 class EditorTab(name: String = "New Tab..", content: String = "",
-				private var path: Path? = null, private val editable: Boolean = true) : Tab(name) {
+				var path: Path? = null, private val editable: Boolean = true) : Tab(name) {
 
 	private var codeArea: CodeArea = CodeArea()
 

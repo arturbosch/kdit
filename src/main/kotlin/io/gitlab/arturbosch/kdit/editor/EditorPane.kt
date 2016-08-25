@@ -50,14 +50,19 @@ class EditorPane : TabPane() {
 	}
 
 	fun newTab(path: Path) {
-		task {
-			EditorTab(path = path)
-		} success {
-			tabs.add(it)
-			focus(it)
-			println("Successful opened tab for $path")
-		} fail {
-			println("Failed to open tab for $path")
+		val maybeTab = openTabs().find { path == it.path }
+		if (maybeTab == null) {
+			task {
+				EditorTab(path = path)
+			} success {
+				tabs.add(it)
+				focus(it)
+				println("Successful opened tab for $path")
+			} fail {
+				println("Failed to open tab for $path")
+			}
+		} else {
+			focus(maybeTab)
 		}
 	}
 
@@ -73,4 +78,5 @@ class EditorPane : TabPane() {
 		return selectionModel.selectedItem as EditorTab
 	}
 
+	private fun openTabs(): List<EditorTab> = tabs.map { (it as EditorTab) }
 }
