@@ -99,7 +99,14 @@ class EditorTab(val name: String = "New Tab..", content: String = "",
 	fun saveAs() {
 		ProjectChooser.chooseFile().ifPresent {
 			save(it)
+			enableStyleAfterSave(it)
 		}
+	}
+
+	private fun enableStyleAfterSave(it: Path?) {
+		codeArea.enableHighlighting(it)
+		codeArea.appendText(" ")
+		codeArea.deletePreviousChar()
 	}
 
 	private fun writeToFile() {
