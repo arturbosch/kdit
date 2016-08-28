@@ -18,9 +18,14 @@ class Editor : View() {
 			// for toolbar
 		}
 		editorPane {
+			bindTitle()
 			editorPane = this
 			VBox.setVgrow(this, Priority.ALWAYS)
 		}
+	}
+
+	private fun EditorPane.bindTitle() {
+		this@Editor.titleProperty.bind(this.titleProperty)
 	}
 
 }

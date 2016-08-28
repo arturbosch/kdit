@@ -1,5 +1,6 @@
 package io.gitlab.arturbosch.kdit.editor
 
+import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.Tab
 import javafx.scene.control.TabPane
 import tornadofx.fail
@@ -11,6 +12,13 @@ import java.nio.file.Path
  * @author Artur Bosch
  */
 class EditorPane : TabPane() {
+
+	val KDIT_NAME = "kdit"
+	val titleProperty = SimpleStringProperty(KDIT_NAME)
+
+	var title: String
+		get() = titleProperty.get() ?: KDIT_NAME
+		set(value) = titleProperty.set(value)
 
 	init {
 		registerShortKeys()
@@ -36,7 +44,10 @@ class EditorPane : TabPane() {
 
 	fun focus(tab: Tab) {
 		this.selectionModel.select(tab)
-		if (tab is EditorTab) tab.requestFocus()
+		if (tab is EditorTab) {
+			tab.requestFocus()
+			title = "$KDIT_NAME - ${tab.path?.toString() ?: tab.name}"
+		}
 	}
 
 
