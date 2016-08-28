@@ -13,7 +13,7 @@ object StyleSheets {
 
 	fun get(path: Path): String? {
 		return when (path.toString().substringAfterLast(".")) {
-			"java" -> javaStyle.value
+			"java", "groovy", "kt", "scala" -> javaStyle.value
 			"xml" -> xmlStyle.value
 			else -> null
 		}

@@ -1,5 +1,5 @@
 .keyword {
-    -fx-fill: purple;
+    -fx-fill: darkblue;
     -fx-font-weight: bold;
 }
 
@@ -8,12 +8,12 @@
 }
 
 .paren {
-    -fx-fill: firebrick;
+    -fx-fill: teal;
     -fx-font-weight: bold;
 }
 
 .bracket {
-    -fx-fill: darkgreen;
+    -fx-fill: teal;
     -fx-font-weight: bold;
 }
 
@@ -23,11 +23,11 @@
 }
 
 .string {
-    -fx-fill: blue;
+    -fx-fill: green;
 }
 
 .comment {
-    -fx-fill: cadetblue;
+    -fx-fill: grey;
 }
 
 /*.paragraph-box: {*/

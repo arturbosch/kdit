@@ -1,6 +1,9 @@
 package io.gitlab.arturbosch.kdit.highlightings
 
+import io.gitlab.arturbosch.kdit.highlightings.syntax.GROOVY_PATTERN
 import io.gitlab.arturbosch.kdit.highlightings.syntax.JAVA_PATTERN
+import io.gitlab.arturbosch.kdit.highlightings.syntax.KOTLIN_PATTERN
+import io.gitlab.arturbosch.kdit.highlightings.syntax.SCALA_PATTERN
 import io.gitlab.arturbosch.kdit.highlightings.syntax.XML_PATTERN
 import io.gitlab.arturbosch.kdit.highlightings.syntax.javaMatching
 import io.gitlab.arturbosch.kdit.highlightings.syntax.xmlMatching
@@ -18,6 +21,9 @@ fun syntax(text: String, path: Path?): StyleSpans<Collection<String>>? {
 	if (path == null) return null
 	return when (path.toString().substringAfterLast(".")) {
 		"java" -> computeHighlighting(text, JAVA_PATTERN, { javaMatching(it) })
+		"kt" -> computeHighlighting(text, KOTLIN_PATTERN, { javaMatching(it) })
+		"groovy" -> computeHighlighting(text, GROOVY_PATTERN, { javaMatching(it) })
+		"scala" -> computeHighlighting(text, SCALA_PATTERN, { javaMatching(it) })
 		"xml" -> computeHighlighting(text, XML_PATTERN, { xmlMatching(it) })
 		else -> null
 	}
