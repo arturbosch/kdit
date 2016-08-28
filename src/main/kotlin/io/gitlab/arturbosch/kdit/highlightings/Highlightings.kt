@@ -2,6 +2,8 @@ package io.gitlab.arturbosch.kdit.highlightings
 
 import io.gitlab.arturbosch.kdit.highlightings.syntax.JAVA_PATTERN
 import io.gitlab.arturbosch.kdit.highlightings.syntax.XML_PATTERN
+import io.gitlab.arturbosch.kdit.highlightings.syntax.javaMatching
+import io.gitlab.arturbosch.kdit.highlightings.syntax.xmlMatching
 import org.fxmisc.richtext.model.StyleSpans
 import org.fxmisc.richtext.model.StyleSpansBuilder
 import java.nio.file.Path
@@ -35,32 +37,4 @@ private fun computeHighlighting(text: String, pattern: Pattern,
 	}
 	spansBuilder.add(emptyList<String>(), text.length - lastKwEnd)
 	return spansBuilder.create()
-}
-
-private fun javaMatching(matcher: Matcher): String? {
-	return (if (matcher.group("KEYWORD") != null)
-		"keyword"
-	else if (matcher.group("PAREN") != null)
-		"paren"
-	else if (matcher.group("BRACE") != null)
-		"brace"
-	else if (matcher.group("BRACKET") != null)
-		"bracket"
-	else if (matcher.group("SEMICOLON") != null)
-		"semicolon"
-	else if (matcher.group("STRING") != null)
-		"string"
-	else if (matcher.group("COMMENT") != null)
-		"comment"
-	else
-		null)
-}
-
-private fun xmlMatching(matcher: Matcher): String? {
-	return (if (matcher.group("STRING") != null)
-		"string"
-	else if (matcher.group("COMMENT") != null)
-		"comment"
-	else
-		null)
 }
