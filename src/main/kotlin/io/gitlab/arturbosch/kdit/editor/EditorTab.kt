@@ -48,6 +48,7 @@ class EditorTab(val name: String = "New Tab..", val content: String = "",
 		}
 		this.add(StackPane(VirtualizedScrollPane(codeArea)))
 		requestFocus()
+		codeArea.moveTo(0)
 	}
 
 	private fun CodeArea.enableHighlighting(path: Path?) {
