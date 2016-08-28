@@ -63,15 +63,15 @@ class EditorPane : TabPane() {
 	fun newTab(path: Path) {
 		val maybeTab = openTabs().find { path == it.path }
 		if (maybeTab == null) {
-			createNewTabAsync { EditorTab(path = path) }
+			createNewTabInBackground(path)
 		} else {
 			focus(maybeTab)
 		}
 	}
 
-	private fun createNewTabAsync(tab: () -> EditorTab) {
+	private fun createNewTabInBackground(path: Path) {
 		task {
-			tab.invoke()
+			EditorTab(path = path)
 		} success {
 			tabs.add(it)
 			focus(it)
@@ -86,17 +86,21 @@ class EditorPane : TabPane() {
 	}
 
 	fun saveAsNewPath() {
-		ProjectChooser.chooseFile().ifPresent { savePath ->
-			val openTab = findOpenTab()
-			tabs.remove(openTab)
-			openTabs().filter { savePath == it.path }
-					.forEach { tabs.remove(it) }
+		findOpenTab().saveAs()
+	}
 
-			createNewTabAsync {
-				EditorTab(path = savePath, content = openTab.content,
-						name = openTab.name, editable = openTab.editable)
-			}
-		}
+	fun reloadTabIfFileEndingsChanges(savePath: Path) {
+		val openTab = findOpenTab()
+		tabs.remove(openTab)
+		openTabs().filter { savePath == it.path }
+				.forEach { tabs.remove(it) }
+		createNewTabInBackground(savePath)
+	}
+
+	fun closeTabsWithSamePathAsThis(tab: EditorTab, path: Path) {
+		openTabs().filter { path == it.path }
+				.filter { tab != it }
+				.forEach { tabs.remove(it) }
 	}
 
 	private fun findOpenTab(): EditorTab {

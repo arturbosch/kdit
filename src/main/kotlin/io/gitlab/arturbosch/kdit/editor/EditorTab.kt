@@ -1,5 +1,6 @@
 package io.gitlab.arturbosch.kdit.editor
 
+import io.gitlab.arturbosch.kdit.editor.util.FileEndings
 import io.gitlab.arturbosch.kdit.highlightings.StyleSheets
 import io.gitlab.arturbosch.kdit.highlightings.syntax
 import javafx.scene.control.Tab
@@ -54,7 +55,6 @@ class EditorTab(val name: String = "New Tab..", val content: String = "",
 			// if style for path is found, add syntax
 			StyleSheets.get(path)?.run {
 				stylesheets.add(this)
-
 				richChanges()
 						.filter { ch -> ch.inserted != ch.removed }
 						.subscribe { change -> setStyleSpans(0, syntax(text, path)) }
@@ -93,8 +93,34 @@ class EditorTab(val name: String = "New Tab..", val content: String = "",
 			codeArea.undoManager.currentPosition.mark()
 			determineTabName(savePath)
 		} else {
-			(tabPane as EditorPane).saveAsNewPath()
+			saveAs()
 		}
+	}
+
+	fun saveAs() {
+		ProjectChooser.chooseFile().ifPresent {
+			val oldPath = path
+			save(it)
+			checkStyleAfterFileChange(it, oldPath)
+		}
+	}
+
+	private fun checkStyleAfterFileChange(it: Path, oldPath: Path?) {
+		if (oldPath == null) {
+			enableStyleAfterSave(it)
+		} else if (FileEndings.isSame(it, oldPath).not()) {
+			(tabPane as EditorPane).reloadTabIfFileEndingsChanges(it)
+		} else {
+			(tabPane as EditorPane).closeTabsWithSamePathAsThis(this, it)
+		}
+	}
+
+	private fun enableStyleAfterSave(it: Path?) {
+		codeArea.enableHighlighting(it)
+		val position = codeArea.caretPosition
+		codeArea.appendText(" ")
+		codeArea.deletePreviousChar()
+		codeArea.moveTo(position)
 	}
 
 	private fun writeToFile() {
