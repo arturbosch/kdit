@@ -19,8 +19,8 @@ import java.nio.file.Path
 /**
  * @author Artur Bosch
  */
-class EditorTab(val name: String = "New Tab..", content: String = "",
-				var path: Path? = null, private val editable: Boolean = true) : Tab(name) {
+class EditorTab(val name: String = "New Tab..", val content: String = "",
+				var path: Path? = null, val editable: Boolean = true) : Tab(name) {
 
 	private var codeArea: CodeArea = CodeArea()
 
@@ -54,6 +54,7 @@ class EditorTab(val name: String = "New Tab..", content: String = "",
 			// if style for path is found, add syntax
 			StyleSheets.get(path)?.run {
 				stylesheets.add(this)
+
 				richChanges()
 						.filter { ch -> ch.inserted != ch.removed }
 						.subscribe { change -> setStyleSpans(0, syntax(text, path)) }
@@ -92,21 +93,8 @@ class EditorTab(val name: String = "New Tab..", content: String = "",
 			codeArea.undoManager.currentPosition.mark()
 			determineTabName(savePath)
 		} else {
-			saveAs()
+			(tabPane as EditorPane).saveAsNewPath()
 		}
-	}
-
-	fun saveAs() {
-		ProjectChooser.chooseFile().ifPresent {
-			save(it)
-			enableStyleAfterSave(it)
-		}
-	}
-
-	private fun enableStyleAfterSave(it: Path?) {
-		codeArea.enableHighlighting(it)
-		codeArea.appendText(" ")
-		codeArea.deletePreviousChar()
 	}
 
 	private fun writeToFile() {

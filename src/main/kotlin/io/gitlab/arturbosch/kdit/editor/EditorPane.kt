@@ -63,17 +63,21 @@ class EditorPane : TabPane() {
 	fun newTab(path: Path) {
 		val maybeTab = openTabs().find { path == it.path }
 		if (maybeTab == null) {
-			task {
-				EditorTab(path = path)
-			} success {
-				tabs.add(it)
-				focus(it)
-				println("Successful opened tab for $path")
-			} fail {
-				println("Failed to open tab for $path")
-			}
+			createNewTabAsync { EditorTab(path = path) }
 		} else {
 			focus(maybeTab)
+		}
+	}
+
+	private fun createNewTabAsync(tab: () -> EditorTab) {
+		task {
+			tab.invoke()
+		} success {
+			tabs.add(it)
+			focus(it)
+			println("Successful opened tab for ${it.path}")
+		} fail {
+			println("Failed to open new tab.")
 		}
 	}
 
@@ -82,7 +86,17 @@ class EditorPane : TabPane() {
 	}
 
 	fun saveAsNewPath() {
-		findOpenTab().saveAs()
+		ProjectChooser.chooseFile().ifPresent { savePath ->
+			val openTab = findOpenTab()
+			tabs.remove(openTab)
+			openTabs().filter { savePath == it.path }
+					.forEach { tabs.remove(it) }
+
+			createNewTabAsync {
+				EditorTab(path = savePath, content = openTab.content,
+						name = openTab.name, editable = openTab.editable)
+			}
+		}
 	}
 
 	private fun findOpenTab(): EditorTab {
