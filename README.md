@@ -1,7 +1,9 @@
-# kdit - Text Editor written in Kotlin
+# kdit
 
-A minimalistic text editor without fancy buttons, just with a tab pane
-and fully controllable with shortkeys.
+A minimalistic shortkey-based text editor written in Kotlin and
+powered by JavaFX. Supports syntax highlighting for Kotlin, Java, Groovy 
+and for some elements of XML and Markdown. Uses _TornadoFX_ for easier
+UI building and _RichTextFX_ for code areas.
 
 ## Shortkeys
 
@@ -25,9 +27,12 @@ Shift+Enter - Add newline not breaking current line
 
 ## Build/Execution
 
-Download jar from Bintray and run it with `java -jar kdit-xxx.jar`
+Download jar from Bintray `https://bintray.com/arturbosch/software/kdit`
+and run it with `java -jar kdit-xxx.jar`
 
 or
 
 Git clone this repository and run `gradle shadowJar` to create a 
 executable jar. Again use `java -jar kdit-xxx.jar`.
+
+It is highly recommend to create a shell script in /bin to start kdit from console.
