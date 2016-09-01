@@ -3,9 +3,11 @@ package io.gitlab.arturbosch.kdit.highlightings
 import io.gitlab.arturbosch.kdit.highlightings.syntax.GROOVY_PATTERN
 import io.gitlab.arturbosch.kdit.highlightings.syntax.JAVA_PATTERN
 import io.gitlab.arturbosch.kdit.highlightings.syntax.KOTLIN_PATTERN
+import io.gitlab.arturbosch.kdit.highlightings.syntax.MD_PATTERN
 import io.gitlab.arturbosch.kdit.highlightings.syntax.SCALA_PATTERN
 import io.gitlab.arturbosch.kdit.highlightings.syntax.XML_PATTERN
 import io.gitlab.arturbosch.kdit.highlightings.syntax.javaMatching
+import io.gitlab.arturbosch.kdit.highlightings.syntax.mdMatching
 import io.gitlab.arturbosch.kdit.highlightings.syntax.xmlMatching
 import org.fxmisc.richtext.model.StyleSpans
 import org.fxmisc.richtext.model.StyleSpansBuilder
@@ -25,6 +27,7 @@ fun syntax(text: String, path: Path?): StyleSpans<Collection<String>>? {
 		"groovy" -> computeHighlighting(text, GROOVY_PATTERN, { javaMatching(it) })
 		"scala" -> computeHighlighting(text, SCALA_PATTERN, { javaMatching(it) })
 		"xml" -> computeHighlighting(text, XML_PATTERN, { xmlMatching(it) })
+		"md" -> computeHighlighting(text, MD_PATTERN, { mdMatching(it) })
 		else -> null
 	}
 }
@@ -35,8 +38,7 @@ private fun computeHighlighting(text: String, pattern: Pattern,
 	var lastKwEnd = 0
 	val spansBuilder = StyleSpansBuilder<Collection<String>>()
 	while (matcher.find()) {
-		val styleClass: String? =
-				groupMatching.invoke(matcher)!!
+		val styleClass: String? = groupMatching.invoke(matcher)!!
 		spansBuilder.add(emptyList<String>(), matcher.start() - lastKwEnd)
 		spansBuilder.add(setOf(styleClass ?: ""), matcher.end() - matcher.start())
 		lastKwEnd = matcher.end()
