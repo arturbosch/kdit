@@ -1,5 +1,6 @@
 package io.gitlab.arturbosch.kdit.editor
 
+import io.gitlab.arturbosch.kdit.editor.util.HELP_TEXT
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.Tab
 import javafx.scene.control.TabPane
@@ -55,7 +56,7 @@ class EditorPane : TabPane() {
 		var helpTab = tabs.find { it.text == "Help" }
 		if (helpTab == null) {
 			helpTab = editorTab(name = "Help", editable = false,
-					content = "Shortkeys:\n Ctrl+K - Delete line \n Ctrl+D - Duplicate line")
+					content = HELP_TEXT)
 		}
 		focus(helpTab)
 	}
