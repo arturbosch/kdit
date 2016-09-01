@@ -7,23 +7,23 @@ UI building and _RichTextFX_ for code areas.
 
 ## Shortkeys
 
-ESC - Switch between tab pane and current tab 
-Ctrl+Alt+Left - Switch to left tab 
-Ctrl+Alt+Right - Switch to right tab 
-Ctrl+T - New tab 
-Ctrl+W - Close current tab 
-Ctrl+H - Open a help tab 
+ESC - Switch between tab pane and current tab  
+Ctrl+Alt+Left - Switch to left tab  
+Ctrl+Alt+Right - Switch to right tab  
+Ctrl+T - New tab  
+Ctrl+W - Close current tab  
+Ctrl+H - Open a help tab  
 
-Ctrl+O - Open a file 
-Ctrl+Shift+O - Open a project (Not supported yet) 
-Ctrl+S - Save current file 
-Ctrl+Shift+A - Save current file as .. 
+Ctrl+O - Open a file  
+Ctrl+Shift+O - Open a project (Not supported yet)  
+Ctrl+S - Save current file  
+Ctrl+Shift+A - Save current file as ..  
 
-Ctrl+K - Delete line 
-Ctrl+D - Duplicate line 
-Ctrl+Up - Navigate one paragraph up 
-Ctrl+Down - Navigate one paragraph down 
-Shift+Enter - Add newline not breaking current line 
+Ctrl+K - Delete line  
+Ctrl+D - Duplicate line  
+Ctrl+Up - Navigate one paragraph up  
+Ctrl+Down - Navigate one paragraph down  
+Shift+Enter - Add newline not breaking current line  
 
 ## Build/Execution
 
