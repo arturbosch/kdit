@@ -23,6 +23,7 @@ class EditorPane : TabPane() {
 
 	init {
 		registerShortKeys()
+		showHelp()
 	}
 
 	fun switchTabLeft() {
