@@ -1,6 +1,8 @@
 package io.gitlab.arturbosch.kdit.editor
 
 import io.gitlab.arturbosch.kdit.editor.util.HELP_TEXT
+import io.gitlab.arturbosch.kdit.editor.util.onlyIfNull
+import io.gitlab.arturbosch.kdit.editor.util.registerShortKeys
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.Tab
 import javafx.scene.control.TabPane

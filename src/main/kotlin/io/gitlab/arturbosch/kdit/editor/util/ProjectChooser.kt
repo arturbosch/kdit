@@ -1,4 +1,4 @@
-package io.gitlab.arturbosch.kdit.editor
+package io.gitlab.arturbosch.kdit.editor.util
 
 import javafx.stage.DirectoryChooser
 import javafx.stage.FileChooser

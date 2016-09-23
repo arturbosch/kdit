@@ -36,7 +36,7 @@ fun CodeArea.deleteLine() {
 	}
 }
 
-private fun CodeArea.onLastLine(x: Int) = paragraphs.size - 1 == x
+fun CodeArea.onLastLine(x: Int) = paragraphs.size - 1 == x
 
 fun CodeArea.duplicateLine() {
 	val y = caretColumn

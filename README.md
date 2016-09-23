@@ -7,7 +7,7 @@ UI building and _RichTextFX_ for code areas.
 
 ## Shortkeys
 
-ESC - Switch between tab pane and current tab  
+ESC - Switch between tab pane and current tab
 Ctrl+Alt+Left - Switch to left tab  
 Ctrl+Alt+Right - Switch to right tab  
 Ctrl+T - New tab  

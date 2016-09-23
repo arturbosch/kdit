@@ -1,6 +1,10 @@
 package io.gitlab.arturbosch.kdit.editor
 
+import io.gitlab.arturbosch.kdit.editor.util.Comments
 import io.gitlab.arturbosch.kdit.editor.util.FileEndings
+import io.gitlab.arturbosch.kdit.editor.util.ProjectChooser
+import io.gitlab.arturbosch.kdit.editor.util.registerShortKeys
+import io.gitlab.arturbosch.kdit.editor.util.replaceLast
 import io.gitlab.arturbosch.kdit.highlightings.StyleSheets
 import io.gitlab.arturbosch.kdit.highlightings.syntax
 import javafx.scene.control.Tab
@@ -42,7 +46,7 @@ class EditorTab(val name: String = "New Tab..", val content: String = "",
 		codeArea.apply {
 			paragraphGraphicFactory = LineNumberFactory.get(this)
 			enableHighlighting(path)
-			registerShortKeys()
+			registerShortKeys(this@EditorTab)
 			isEditable = editable
 			replaceText(content)
 		}
@@ -107,6 +111,27 @@ class EditorTab(val name: String = "New Tab..", val content: String = "",
 			val oldPath = path
 			save(it)
 			checkStyleAfterFileChange(it, oldPath)
+		}
+	}
+
+	fun uncomment() {
+		val (left, right) = Comments.of(path)
+		val index = codeArea.currentParagraph
+		val column = codeArea.caretColumn
+		val paragraph = codeArea.getParagraph(index)
+		var text = paragraph.text
+		if (text.trim().startsWith(left)) {
+			text = text.replaceFirst(left, "")
+			if (right.isNotEmpty()) {
+				text = text.replaceLast(right, "")
+			}
+		} else {
+			text = "$left$text$right"
+		}
+		codeArea.replaceText(index, 0, index, paragraph.length(), text)
+		if (!codeArea.onLastLine(index)) {
+			val lengthOfNextParagraph = codeArea.getParagraph(index + 1).text.length
+			codeArea.moveTo(index + 1, if (column > lengthOfNextParagraph) lengthOfNextParagraph else column)
 		}
 	}
 

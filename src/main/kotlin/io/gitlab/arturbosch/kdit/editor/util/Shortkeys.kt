@@ -1,5 +1,12 @@
-package io.gitlab.arturbosch.kdit.editor
+package io.gitlab.arturbosch.kdit.editor.util
 
+import io.gitlab.arturbosch.kdit.editor.EditorPane
+import io.gitlab.arturbosch.kdit.editor.EditorTab
+import io.gitlab.arturbosch.kdit.editor.deleteLine
+import io.gitlab.arturbosch.kdit.editor.duplicateLine
+import io.gitlab.arturbosch.kdit.editor.newLine
+import io.gitlab.arturbosch.kdit.editor.nextSection
+import io.gitlab.arturbosch.kdit.editor.previousSection
 import javafx.application.Platform
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyCombination
@@ -55,9 +62,12 @@ fun EditorPane.registerShortKeys() {
 	))
 }
 
-fun CodeArea.registerShortKeys() {
+fun CodeArea.registerShortKeys(tab: EditorTab) {
 	val codeArea = this
 	Nodes.addInputMap(this, sequence(
+			consume(EventPattern.keyPressed(KeyCode.SLASH, KeyCombination.CONTROL_DOWN)) {
+				tab.uncomment()
+			},
 			consume(EventPattern.keyPressed(KeyCode.K, KeyCombination.CONTROL_DOWN)) {
 				codeArea.deleteLine()
 			},
@@ -75,4 +85,5 @@ fun CodeArea.registerShortKeys() {
 			}
 	))
 }
+
 

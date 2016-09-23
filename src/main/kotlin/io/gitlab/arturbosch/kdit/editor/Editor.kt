@@ -1,5 +1,6 @@
 package io.gitlab.arturbosch.kdit.editor
 
+import io.gitlab.arturbosch.kdit.editor.util.editorPane
 import javafx.scene.layout.Priority
 import javafx.scene.layout.VBox
 import tornadofx.View
