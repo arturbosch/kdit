@@ -30,6 +30,6 @@
     -fx-fill: grey;
 }
 
-/*.paragraph-box: {*/
-/*-fx-background-color: #f2f9fc;*/
-/*}*/
+.annotation {
+    -fx-fill: orange;
+}

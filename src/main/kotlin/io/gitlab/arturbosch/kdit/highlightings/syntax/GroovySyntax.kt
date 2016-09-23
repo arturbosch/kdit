@@ -68,11 +68,4 @@ private val KEYWORDS_GROOVY = arrayOf(
 
 private val GROOVY_KEYWORDS_PATTERN = "\\b(" + KEYWORDS_GROOVY.joinToString("|") + ")\\b"
 
-val GROOVY_PATTERN: Pattern = Pattern.compile(
-		"(?<KEYWORD>" + GROOVY_KEYWORDS_PATTERN + ")"
-				+ "|(?<PAREN>" + PAREN_PATTERN + ")"
-				+ "|(?<BRACE>" + BRACE_PATTERN + ")"
-				+ "|(?<BRACKET>" + BRACKET_PATTERN + ")"
-				+ "|(?<SEMICOLON>" + SEMICOLON_PATTERN + ")"
-				+ "|(?<STRING>" + STRING_PATTERN + ")"
-				+ "|(?<COMMENT>" + COMMENT_PATTERN + ")")
+val GROOVY_PATTERN: Pattern = Pattern.compile("(?<KEYWORD>$GROOVY_KEYWORDS_PATTERN)$BASIC_PATTERN")

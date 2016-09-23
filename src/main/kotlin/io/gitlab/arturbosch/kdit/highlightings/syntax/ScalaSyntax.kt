@@ -50,11 +50,4 @@ private val KEYWORDS_SCALA = arrayOf(
 
 private val SCALA_KEYWORDS_PATTERN = "\\b(" + KEYWORDS_SCALA.joinToString("|") + ")\\b"
 
-val SCALA_PATTERN: Pattern = Pattern.compile(
-		"(?<KEYWORD>" + SCALA_KEYWORDS_PATTERN + ")"
-				+ "|(?<PAREN>" + PAREN_PATTERN + ")"
-				+ "|(?<BRACE>" + BRACE_PATTERN + ")"
-				+ "|(?<BRACKET>" + BRACKET_PATTERN + ")"
-				+ "|(?<SEMICOLON>" + SEMICOLON_PATTERN + ")"
-				+ "|(?<STRING>" + STRING_PATTERN + ")"
-				+ "|(?<COMMENT>" + COMMENT_PATTERN + ")")
+val SCALA_PATTERN: Pattern = Pattern.compile("(?<KEYWORD>$SCALA_KEYWORDS_PATTERN)$BASIC_PATTERN")

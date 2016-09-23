@@ -43,11 +43,4 @@ private val KEYWORDS_KOTLIN = arrayOf(
 
 private val KOTLIN_KEYWORDS_PATTERN = "\\b(" + KEYWORDS_KOTLIN.joinToString("|") + ")\\b"
 
-val KOTLIN_PATTERN: Pattern = Pattern.compile(
-		"(?<KEYWORD>" + KOTLIN_KEYWORDS_PATTERN + ")"
-				+ "|(?<PAREN>" + PAREN_PATTERN + ")"
-				+ "|(?<BRACE>" + BRACE_PATTERN + ")"
-				+ "|(?<BRACKET>" + BRACKET_PATTERN + ")"
-				+ "|(?<SEMICOLON>" + SEMICOLON_PATTERN + ")"
-				+ "|(?<STRING>" + STRING_PATTERN + ")"
-				+ "|(?<COMMENT>" + COMMENT_PATTERN + ")")
+val KOTLIN_PATTERN: Pattern = Pattern.compile("(?<KEYWORD>$KOTLIN_KEYWORDS_PATTERN)$BASIC_PATTERN")
