@@ -31,5 +31,6 @@
 }
 
 .annotation {
-    -fx-fill: orange;
+    -fx-fill: darkblue;
+    -fx-font-weight: bold;
 }
