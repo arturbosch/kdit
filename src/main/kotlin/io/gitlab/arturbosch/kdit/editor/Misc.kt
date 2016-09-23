@@ -24,3 +24,9 @@ fun TabPane.editorTab(name: String = "", content: String = "",
 fun ui(func: () -> Unit) = {
 	Platform.runLater(func)
 }
+
+inline fun <T, R> T.onlyIfNull(block: T?.() -> R) {
+	if (this == null) {
+		block()
+	}
+}

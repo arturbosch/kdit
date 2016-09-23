@@ -52,14 +52,15 @@ class EditorPane : TabPane() {
 		}
 	}
 
-
 	fun showHelp() {
-		var helpTab = tabs.find { it.text == "Help" }
-		if (helpTab == null) {
-			helpTab = editorTab(name = "Help", editable = false,
-					content = HELP_TEXT)
+		tabs.find { it.text == "Help" }.onlyIfNull {
+			task {
+				EditorTab(name = "Help", editable = false, content = HELP_TEXT)
+			} success {
+				tabs.add(it)
+				focus(it)
+			}
 		}
-		focus(helpTab)
 	}
 
 	fun newTab(path: Path) {
