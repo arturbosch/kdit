@@ -49,6 +49,8 @@ class EditorTab(val name: String = "New Tab..", val content: String = "",
 		this.add(StackPane(VirtualizedScrollPane(codeArea)))
 		requestFocus()
 		codeArea.moveTo(0)
+		codeArea.undoManager.forgetHistory()
+		codeArea.undoManager.mark()
 	}
 
 	private fun CodeArea.enableHighlighting(path: Path?) {
@@ -89,10 +91,12 @@ class EditorTab(val name: String = "New Tab..", val content: String = "",
 
 	fun save(savePath: Path? = path) {
 		if (savePath != null) {
-			path = savePath
-			writeToFile()
-			codeArea.undoManager.currentPosition.mark()
-			determineTabName(savePath)
+			if (codeArea.isUndoAvailable) {
+				path = savePath
+				writeToFile()
+				codeArea.undoManager.mark()
+				determineTabName(savePath)
+			}
 		} else {
 			saveAs()
 		}

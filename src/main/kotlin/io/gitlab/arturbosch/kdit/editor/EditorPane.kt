@@ -48,17 +48,14 @@ class EditorPane : TabPane() {
 		this.selectionModel.select(tab)
 		if (tab is EditorTab) {
 			tab.requestFocus()
-			title = "$KDIT_NAME - ${tab.path?.toString() ?: tab.name}"
+			title = "$KDIT_NAME - ${retrieveTabName(tab)}"
 		}
 	}
 
 	fun showHelp() {
 		tabs.find { it.text == "Help" }.onlyIfNull {
-			task {
+			createNewTabInBackground {
 				EditorTab(name = "Help", editable = false, content = HELP_TEXT)
-			} success {
-				tabs.add(it)
-				focus(it)
 			}
 		}
 	}
@@ -66,21 +63,11 @@ class EditorPane : TabPane() {
 	fun newTab(path: Path) {
 		val maybeTab = openTabs().find { path == it.path }
 		if (maybeTab == null) {
-			createNewTabInBackground(path)
+			createNewTabInBackground {
+				EditorTab(path = path)
+			}
 		} else {
 			focus(maybeTab)
-		}
-	}
-
-	private fun createNewTabInBackground(path: Path) {
-		task {
-			EditorTab(path = path)
-		} success {
-			tabs.add(it)
-			focus(it)
-			println("Successful opened tab for ${it.path}")
-		} fail {
-			println("Failed to open new tab.")
 		}
 	}
 
@@ -92,12 +79,18 @@ class EditorPane : TabPane() {
 		findOpenTab().saveAs()
 	}
 
+	fun saveEditedTabs() {
+		openTabs().filterNot { it.path == null }.forEach { it.save() }
+	}
+
 	fun reloadTabIfFileEndingsChanges(savePath: Path) {
 		val openTab = findOpenTab()
 		tabs.remove(openTab)
 		openTabs().filter { savePath == it.path }
 				.forEach { tabs.remove(it) }
-		createNewTabInBackground(savePath)
+		createNewTabInBackground {
+			EditorTab(path = savePath)
+		}
 	}
 
 	fun closeTabsWithSamePathAsThis(tab: EditorTab, path: Path) {
@@ -111,4 +104,18 @@ class EditorPane : TabPane() {
 	}
 
 	private fun openTabs(): List<EditorTab> = tabs.map { (it as EditorTab) }
+
+	private fun retrieveTabName(tab: EditorTab) = tab.path?.toString() ?: tab.name
+
+	private fun createNewTabInBackground(tab: () -> EditorTab) {
+		task {
+			tab.invoke()
+		} success {
+			tabs.add(it)
+			focus(it)
+			println("Successful opened tab for ${retrieveTabName(it)}")
+		} fail {
+			println("Failed to open new tab.")
+		}
+	}
 }

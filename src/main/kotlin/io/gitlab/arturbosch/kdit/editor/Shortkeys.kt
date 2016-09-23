@@ -1,5 +1,6 @@
 package io.gitlab.arturbosch.kdit.editor
 
+import javafx.application.Platform
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyCombination
 import org.fxmisc.richtext.CodeArea
@@ -17,6 +18,10 @@ fun EditorPane.registerShortKeys() {
 	Nodes.addInputMap(this, sequence(
 			consume(EventPattern.keyPressed(KeyCode.T, KeyCombination.CONTROL_DOWN)) {
 				tabPane.editorTab("New Tab...").run { tabPane.focus(this) }
+			},
+			consume(EventPattern.keyPressed(KeyCode.Q, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN)) {
+				tabPane.saveEditedTabs()
+				Platform.exit()
 			},
 			consume(EventPattern.keyPressed(KeyCode.W, KeyCombination.CONTROL_DOWN)) {
 				tabPane.tabs.remove(tabPane.selectionModel.selectedItem)
