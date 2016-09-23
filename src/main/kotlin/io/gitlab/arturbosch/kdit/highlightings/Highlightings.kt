@@ -22,12 +22,12 @@ import java.util.regex.Pattern
 fun syntax(text: String, path: Path?): StyleSpans<Collection<String>>? {
 	if (path == null) return null
 	return when (path.toString().substringAfterLast(".")) {
-		"java" -> computeHighlighting(text, JAVA_PATTERN, { javaMatching(it) })
-		"kt" -> computeHighlighting(text, KOTLIN_PATTERN, { javaMatching(it) })
-		"groovy" -> computeHighlighting(text, GROOVY_PATTERN, { javaMatching(it) })
-		"scala" -> computeHighlighting(text, SCALA_PATTERN, { javaMatching(it) })
-		"xml" -> computeHighlighting(text, XML_PATTERN, { xmlMatching(it) })
-		"md" -> computeHighlighting(text, MD_PATTERN, { mdMatching(it) })
+		"java" -> computeHighlighting(text, JAVA_PATTERN, ::javaMatching)
+		"kt" -> computeHighlighting(text, KOTLIN_PATTERN, ::javaMatching)
+		"groovy" -> computeHighlighting(text, GROOVY_PATTERN, ::javaMatching)
+		"scala" -> computeHighlighting(text, SCALA_PATTERN, ::javaMatching)
+		"xml" -> computeHighlighting(text, XML_PATTERN, ::xmlMatching)
+		"md" -> computeHighlighting(text, MD_PATTERN, ::mdMatching)
 		else -> null
 	}
 }
