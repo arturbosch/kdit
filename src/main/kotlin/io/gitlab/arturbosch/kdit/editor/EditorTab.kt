@@ -120,18 +120,31 @@ class EditorTab(val name: String = "New Tab..", val content: String = "",
 		val column = codeArea.caretColumn
 		val paragraph = codeArea.getParagraph(index)
 		var text = paragraph.text
+		var jumpToNextLine = true
 		if (text.trim().startsWith(left)) {
 			text = text.replaceFirst(left, "")
 			if (right.isNotEmpty()) {
 				text = text.replaceLast(right, "")
 			}
+			println(text)
+			if (text.isBlank()) jumpToNextLine = false
 		} else {
+			if (text.isBlank()) jumpToNextLine = false
 			text = "$left$text$right"
 		}
+
+
 		codeArea.replaceText(index, 0, index, paragraph.length(), text)
 		if (!codeArea.onLastLine(index)) {
-			val lengthOfNextParagraph = codeArea.getParagraph(index + 1).text.length
-			codeArea.moveTo(index + 1, if (column > lengthOfNextParagraph) lengthOfNextParagraph else column)
+			println("Jump: $jumpToNextLine")
+			if (jumpToNextLine) {
+				val lengthOfNextParagraph = codeArea.getParagraph(index + 1).text.length
+				codeArea.moveTo(index + 1, if (column > lengthOfNextParagraph) lengthOfNextParagraph else column)
+			} else {
+				if (text.isNotBlank()) {
+					codeArea.moveTo(index, left.length)
+				}
+			}
 		}
 	}
 

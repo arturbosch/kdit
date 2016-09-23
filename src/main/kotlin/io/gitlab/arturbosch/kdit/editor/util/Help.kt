@@ -20,4 +20,5 @@ const val HELP_TEXT: String =
 				"Ctrl+D - Duplicate line \n" +
 				"Ctrl+Up - Navigate one paragraph up \n" +
 				"Ctrl+Down - Navigate one paragraph down \n" +
+				"Ctrl+/ - Comment/Uncomment current line \n" +
 				"Shift+Enter - Add newline not breaking current line \n"
