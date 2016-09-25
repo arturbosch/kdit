@@ -5,7 +5,9 @@ import io.gitlab.arturbosch.kdit.editor.EditorTab
 import io.gitlab.arturbosch.kdit.editor.deleteLine
 import io.gitlab.arturbosch.kdit.editor.duplicateLine
 import io.gitlab.arturbosch.kdit.editor.newLine
+import io.gitlab.arturbosch.kdit.editor.nextPage
 import io.gitlab.arturbosch.kdit.editor.nextSection
+import io.gitlab.arturbosch.kdit.editor.previousPage
 import io.gitlab.arturbosch.kdit.editor.previousSection
 import javafx.application.Platform
 import javafx.scene.input.KeyCode
@@ -82,8 +84,15 @@ fun CodeArea.registerShortKeys(tab: EditorTab) {
 			},
 			consume(EventPattern.keyPressed(KeyCode.DOWN, KeyCombination.CONTROL_DOWN)) {
 				codeArea.nextSection()
+			},
+			consume(EventPattern.keyPressed(KeyCode.DOWN, KeyCombination.SHIFT_DOWN, KeyCombination.CONTROL_DOWN)) {
+				codeArea.nextPage()
+			},
+			consume(EventPattern.keyPressed(KeyCode.UP, KeyCombination.SHIFT_DOWN, KeyCombination.CONTROL_DOWN)) {
+				codeArea.previousPage()
 			}
 	))
 }
+
 
 

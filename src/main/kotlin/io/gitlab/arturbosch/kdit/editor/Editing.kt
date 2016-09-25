@@ -1,11 +1,31 @@
 package io.gitlab.arturbosch.kdit.editor
 
+import io.gitlab.arturbosch.kdit.editor.util.Defaults
 import org.fxmisc.richtext.CodeArea
 import org.fxmisc.richtext.model.NavigationActions
 
 /**
  * @author Artur Bosch
  */
+
+
+fun CodeArea.nextPage() {
+	val index = currentParagraph
+	if (paragraphs.size - 1 <= index + Defaults.pageSize) {
+		moveTo(paragraphs.size - 1, 0)
+	} else {
+		moveTo(index + Defaults.pageSize, 0)
+	}
+}
+
+fun CodeArea.previousPage() {
+	val index = currentParagraph
+	if (0 >= index - Defaults.pageSize) {
+		moveTo(0, 0)
+	} else {
+		moveTo(index - Defaults.pageSize, 0)
+	}
+}
 
 fun CodeArea.nextSection() {
 	val currentIndex = currentParagraph
