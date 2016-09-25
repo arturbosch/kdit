@@ -36,3 +36,7 @@ Git clone this repository and run `gradle shadowJar` to create a
 executable jar. Again use `java -jar kdit-xxx.jar`.
 
 It is highly recommend to create a shell script in /bin to start kdit from console.
+
+## Credits
+
+File and Folder icons are used from https://github.com/Keyamoon/IcoMoon-Free.
