@@ -9,6 +9,41 @@ import org.fxmisc.richtext.model.NavigationActions
  */
 
 
+fun CodeArea.moveLineUp() {
+	val oldIndex = currentParagraph
+	val index = if (currentParagraph == 0) 0 else currentParagraph - 1
+	moveLine(index)
+//	replaceSelection("\n")
+//	moveTo(oldIndex - 2, 0)
+//	deletePreviousChar()
+//	previousChar(NavigationActions.SelectionPolicy.CLEAR)
+//	deleteText(oldIndex, oldIndex)
+}
+
+fun CodeArea.moveLineDown() {
+	val index = if (currentParagraph == paragraphs.size - 1) paragraphs.size - 1 else currentParagraph + 1
+//	val thisIndex = currentParagraph
+//	val nextIndex = currentParagraph + 1
+//	val thisParagraph = subDocument(thisIndex)
+//	val belowParagraph = subDocument(nextIndex)
+//	val posNext = getAbsolutePosition(nextIndex, 0)
+//	val posThis = getAbsolutePosition(thisIndex, 0)
+//	deleteText(posNext, posNext)
+//	deleteText(posThis, posThis)
+//	replace(posNext, posNext, thisParagraph)
+//	replace(posThis, posThis, belowParagraph)
+	moveLine(index)
+//	moveTo(currentParagraph - 2, 0)
+//	deletePreviousChar()
+//	deleteLine()
+}
+
+private fun CodeArea.moveLine(index: Int) {
+	val pos = getAbsolutePosition(index, 0)
+	selectLine()
+	moveSelectedText(pos)
+}
+
 fun CodeArea.nextPage() {
 	val index = currentParagraph
 	if (paragraphs.size - 1 <= index + Defaults.pageSize) {

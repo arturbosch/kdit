@@ -4,6 +4,8 @@ import io.gitlab.arturbosch.kdit.editor.EditorPane
 import io.gitlab.arturbosch.kdit.editor.EditorTab
 import io.gitlab.arturbosch.kdit.editor.deleteLine
 import io.gitlab.arturbosch.kdit.editor.duplicateLine
+import io.gitlab.arturbosch.kdit.editor.moveLineDown
+import io.gitlab.arturbosch.kdit.editor.moveLineUp
 import io.gitlab.arturbosch.kdit.editor.newLine
 import io.gitlab.arturbosch.kdit.editor.nextPage
 import io.gitlab.arturbosch.kdit.editor.nextSection
@@ -84,6 +86,12 @@ fun CodeArea.registerShortKeys(tab: EditorTab) {
 			},
 			consume(EventPattern.keyPressed(KeyCode.DOWN, KeyCombination.CONTROL_DOWN)) {
 				codeArea.nextSection()
+			},
+			consume(EventPattern.keyPressed(KeyCode.UP, KeyCombination.ALT_DOWN)) {
+				codeArea.moveLineUp()
+			},
+			consume(EventPattern.keyPressed(KeyCode.DOWN, KeyCombination.ALT_DOWN)) {
+				codeArea.moveLineDown()
 			},
 			consume(EventPattern.keyPressed(KeyCode.DOWN, KeyCombination.SHIFT_DOWN, KeyCombination.CONTROL_DOWN)) {
 				codeArea.nextPage()
