@@ -9,8 +9,10 @@ import tornadofx.add
 import tornadofx.borderpane
 import tornadofx.center
 import tornadofx.left
+import tornadofx.success
+import tornadofx.task
 import tornadofx.top
-import java.nio.file.Paths
+import java.nio.file.Path
 
 /**
  * @author Artur Bosch
@@ -18,19 +20,17 @@ import java.nio.file.Paths
 class Editor : View() {
 
 	private lateinit var editorPane: EditorPane
+	private var projectExplorer: Explorer? = null
 
 	override val root = borderpane {
 		top {
 			// for toolbar
 		}
-		left {
-			val path = Paths.get("/home/artur/Repos/kdit")
-			add(Explorer(path))
-		}
 		center {
 			editorPane {
 				bindTitle()
 				editorPane = this
+				registerEditor(this@Editor)
 				VBox.setVgrow(this, Priority.ALWAYS)
 			}
 		}
@@ -40,4 +40,17 @@ class Editor : View() {
 		this@Editor.titleProperty.bind(this.titleProperty)
 	}
 
+	fun registerProjectExplorer(path: Path) {
+		if (projectExplorer?.projectPath == path) {
+			return
+		} else {
+			task {
+				Explorer(path, editorPane).apply { projectExplorer = this }
+			} success {
+				root.left {
+					add(it)
+				}
+			}
+		}
+	}
 }

@@ -1,16 +1,7 @@
-package io.gitlab.arturbosch.kdit.editor.util
+package io.gitlab.arturbosch.kdit.editor
 
-import io.gitlab.arturbosch.kdit.editor.EditorPane
-import io.gitlab.arturbosch.kdit.editor.EditorTab
-import io.gitlab.arturbosch.kdit.editor.deleteLine
-import io.gitlab.arturbosch.kdit.editor.duplicateLine
-import io.gitlab.arturbosch.kdit.editor.moveLineDown
-import io.gitlab.arturbosch.kdit.editor.moveLineUp
-import io.gitlab.arturbosch.kdit.editor.newLine
-import io.gitlab.arturbosch.kdit.editor.nextPage
-import io.gitlab.arturbosch.kdit.editor.nextSection
-import io.gitlab.arturbosch.kdit.editor.previousPage
-import io.gitlab.arturbosch.kdit.editor.previousSection
+import io.gitlab.arturbosch.kdit.editor.util.ProjectChooser
+import io.gitlab.arturbosch.kdit.editor.util.editorTab
 import javafx.application.Platform
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyCombination
@@ -61,7 +52,7 @@ fun EditorPane.registerShortKeys() {
 				tabPane.saveAsNewPath()
 			},
 			consume(EventPattern.keyPressed(KeyCode.O, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN)) {
-				println(ProjectChooser.openDir())
+				ProjectChooser.openDir().ifPresent { this.editor.registerProjectExplorer(it) }
 			}
 	))
 }

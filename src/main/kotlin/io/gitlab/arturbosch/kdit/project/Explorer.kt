@@ -1,5 +1,6 @@
 package io.gitlab.arturbosch.kdit.project
 
+import io.gitlab.arturbosch.kdit.editor.EditorPane
 import javafx.scene.control.TreeView
 import java.nio.file.Path
 import java.util.Stack
@@ -7,7 +8,7 @@ import java.util.Stack
 /**
  * @author Artur Bosch
  */
-class Explorer(projectPath: Path) : TreeView<String>() {
+class Explorer(val projectPath: Path, val editorPane: EditorPane) : TreeView<String>() {
 
 	init {
 		root = FileEntry(projectPath)
@@ -39,7 +40,6 @@ class Explorer(projectPath: Path) : TreeView<String>() {
 		val children = nextEntry.children.map { it as FileEntry }
 		if (children.all { it.isDirectory }) {
 			for (child in children) {
-				println("$child")
 				child.isExpanded = true
 				dirs.push(child)
 			}

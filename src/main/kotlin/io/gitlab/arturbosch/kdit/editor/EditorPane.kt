@@ -2,7 +2,7 @@ package io.gitlab.arturbosch.kdit.editor
 
 import io.gitlab.arturbosch.kdit.editor.util.HELP_TEXT
 import io.gitlab.arturbosch.kdit.editor.util.onlyIfNull
-import io.gitlab.arturbosch.kdit.editor.util.registerShortKeys
+import io.gitlab.arturbosch.kdit.editor.registerShortKeys
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.Tab
 import javafx.scene.control.TabPane
@@ -18,6 +18,7 @@ class EditorPane : TabPane() {
 
 	val KDIT_NAME = "kdit"
 	val titleProperty = SimpleStringProperty(KDIT_NAME)
+	lateinit var editor: Editor
 
 	var title: String
 		get() = titleProperty.get() ?: KDIT_NAME
@@ -119,5 +120,9 @@ class EditorPane : TabPane() {
 		} fail {
 			println("Failed to open new tab.")
 		}
+	}
+
+	fun registerEditor(editor: Editor) {
+		this.editor = editor
 	}
 }

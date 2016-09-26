@@ -3,7 +3,7 @@ package io.gitlab.arturbosch.kdit.editor
 import io.gitlab.arturbosch.kdit.editor.util.Comments
 import io.gitlab.arturbosch.kdit.editor.util.FileEndings
 import io.gitlab.arturbosch.kdit.editor.util.ProjectChooser
-import io.gitlab.arturbosch.kdit.editor.util.registerShortKeys
+import io.gitlab.arturbosch.kdit.editor.registerShortKeys
 import io.gitlab.arturbosch.kdit.editor.util.replaceLast
 import io.gitlab.arturbosch.kdit.highlightings.StyleSheets
 import io.gitlab.arturbosch.kdit.highlightings.syntax
