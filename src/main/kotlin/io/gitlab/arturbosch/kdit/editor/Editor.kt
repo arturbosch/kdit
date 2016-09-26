@@ -1,15 +1,15 @@
 package io.gitlab.arturbosch.kdit.editor
 
 import io.gitlab.arturbosch.kdit.editor.util.editorPane
-import io.gitlab.arturbosch.kdit.project.FileEntry
+import io.gitlab.arturbosch.kdit.project.Explorer
 import javafx.scene.layout.Priority
 import javafx.scene.layout.VBox
 import tornadofx.View
+import tornadofx.add
 import tornadofx.borderpane
 import tornadofx.center
 import tornadofx.left
 import tornadofx.top
-import tornadofx.treeview
 import java.nio.file.Paths
 
 /**
@@ -25,11 +25,7 @@ class Editor : View() {
 		}
 		left {
 			val path = Paths.get("/home/artur/Repos/kdit")
-			val root = FileEntry(path)
-			root.isExpanded = true
-			treeview(root) {
-				style = "-fx-font: 12px Tahoma; -fx-stroke: #eeeeee; -fx-background-color: #0a0a0a; -fx-text-fill: #ffffff;"
-			}
+			add(Explorer(path))
 		}
 		center {
 			editorPane {
