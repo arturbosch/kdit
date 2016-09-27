@@ -27,10 +27,9 @@ class Editor : View() {
 			// for toolbar
 		}
 		center {
-			editorPane {
+			editorPane(this@Editor) {
 				bindTitle()
 				editorPane = this
-				registerEditor(this@Editor)
 				VBox.setVgrow(this, Priority.ALWAYS)
 			}
 		}

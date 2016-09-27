@@ -1,8 +1,8 @@
 package io.gitlab.arturbosch.kdit.editor.util
 
+import io.gitlab.arturbosch.kdit.editor.Editor
 import io.gitlab.arturbosch.kdit.editor.EditorPane
 import io.gitlab.arturbosch.kdit.editor.EditorTab
-import javafx.application.Platform
 import javafx.event.EventTarget
 import javafx.scene.control.TabPane
 import tornadofx.opcr
@@ -12,7 +12,7 @@ import java.nio.file.Path
  * @author Artur Bosch
  */
 
-fun EventTarget.editorPane(op: (EditorPane.() -> Unit)? = null) = opcr(this, EditorPane(), op)
+fun EventTarget.editorPane(editor: Editor, op: (EditorPane.() -> Unit)? = null) = opcr(this, EditorPane(editor), op)
 
 fun TabPane.editorTab(name: String = "", content: String = "",
 					  path: Path? = null, editable: Boolean = true,
@@ -23,9 +23,7 @@ fun TabPane.editorTab(name: String = "", content: String = "",
 	return tab
 }
 
-fun ui(func: () -> Unit) = {
-	Platform.runLater(func)
-}
+fun Any?.notNull(): Boolean = if (this != null) true else false
 
 inline fun <T, R> T.onlyIfNull(block: T?.() -> R) {
 	if (this == null) {

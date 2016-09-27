@@ -2,7 +2,6 @@ package io.gitlab.arturbosch.kdit.editor
 
 import io.gitlab.arturbosch.kdit.editor.util.HELP_TEXT
 import io.gitlab.arturbosch.kdit.editor.util.onlyIfNull
-import io.gitlab.arturbosch.kdit.editor.registerShortKeys
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.Tab
 import javafx.scene.control.TabPane
@@ -14,11 +13,10 @@ import java.nio.file.Path
 /**
  * @author Artur Bosch
  */
-class EditorPane : TabPane() {
+class EditorPane(val editor: Editor) : TabPane() {
 
 	val KDIT_NAME = "kdit"
 	val titleProperty = SimpleStringProperty(KDIT_NAME)
-	lateinit var editor: Editor
 
 	var title: String
 		get() = titleProperty.get() ?: KDIT_NAME
@@ -27,6 +25,10 @@ class EditorPane : TabPane() {
 	init {
 		registerShortKeys()
 		showHelp()
+	}
+
+	fun openProject(project: Path) {
+		editor.registerProjectExplorer(project)
 	}
 
 	fun switchTabLeft() {
@@ -122,7 +124,4 @@ class EditorPane : TabPane() {
 		}
 	}
 
-	fun registerEditor(editor: Editor) {
-		this.editor = editor
-	}
 }

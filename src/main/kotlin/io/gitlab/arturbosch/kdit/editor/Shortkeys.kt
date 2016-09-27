@@ -41,9 +41,7 @@ fun EditorPane.registerShortKeys() {
 				tabPane.switchFocus()
 			},
 			consume(EventPattern.keyPressed(KeyCode.O, KeyCombination.CONTROL_DOWN)) {
-				ProjectChooser.openFile().ifPresent {
-					tabPane.newTab(it)
-				}
+				ProjectChooser.openFile().ifPresent { tabPane.newTab(it) }
 			},
 			consume(EventPattern.keyPressed(KeyCode.S, KeyCombination.CONTROL_DOWN)) {
 				tabPane.saveTab()
@@ -52,7 +50,7 @@ fun EditorPane.registerShortKeys() {
 				tabPane.saveAsNewPath()
 			},
 			consume(EventPattern.keyPressed(KeyCode.O, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN)) {
-				ProjectChooser.openDir().ifPresent { this.editor.registerProjectExplorer(it) }
+				ProjectChooser.openDir().ifPresent { tabPane.openProject(it) }
 			}
 	))
 }

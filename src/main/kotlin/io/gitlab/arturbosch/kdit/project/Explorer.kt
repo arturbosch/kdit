@@ -21,6 +21,10 @@ class Explorer(val projectPath: Path, val editorPane: EditorPane) : TreeView<Str
 		root.isExpanded = true
 		style = "-fx-font: 12px Tahoma; -fx-stroke: #eeeeee; -fx-background-color: #0a0a0a; -fx-text-fill: #ffffff;"
 		expandSrcMainFolder()
+		registerListeners()
+	}
+
+	private fun registerListeners() {
 		val mouseEventHandle = EventHandler { event: MouseEvent -> handleMouseClicked(event) }
 		val keyEventHandle = EventHandler { event: KeyEvent -> handleEnterClicked(event) }
 		addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEventHandle)
@@ -35,7 +39,7 @@ class Explorer(val projectPath: Path, val editorPane: EditorPane) : TreeView<Str
 
 	private fun handle(item: TreeItem<String>) {
 		val pathToOpen = (item as FileEntry).path
-		if(FileEndings.isSupported(pathToOpen)) {
+		if (FileEndings.isSupported(pathToOpen)) {
 			editorPane.newTab(pathToOpen)
 		}
 	}
