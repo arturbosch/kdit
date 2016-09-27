@@ -34,6 +34,9 @@ class Explorer(val projectPath: Path, val editorPane: EditorPane) : TreeView<Str
 	private fun handleEnterClicked(event: KeyEvent) {
 		if (event.code == KeyCode.ENTER) {
 			handle(selectionModel.selectedItem)
+		} else if (event.code == KeyCode.ESCAPE) {
+			editorPane.requestFocus()
+			editorPane.switchFocus()
 		}
 	}
 
