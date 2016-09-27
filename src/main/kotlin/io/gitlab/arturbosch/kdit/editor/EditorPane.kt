@@ -76,6 +76,10 @@ class EditorPane(val editor: Editor) : TabPane() {
 		}
 	}
 
+	fun closeCurrentTab() {
+		tabs.remove(selectionModel.selectedItem)
+	}
+
 	fun saveTab() {
 		findOpenTab().save()
 	}

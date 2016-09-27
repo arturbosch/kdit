@@ -26,7 +26,7 @@ fun EditorPane.registerShortKeys() {
 				Platform.exit()
 			},
 			consume(EventPattern.keyPressed(KeyCode.W, KeyCombination.CONTROL_DOWN)) {
-				tabPane.tabs.remove(tabPane.selectionModel.selectedItem)
+				tabPane.closeCurrentTab()
 			},
 			consume(EventPattern.keyPressed(KeyCode.H, KeyCombination.CONTROL_DOWN)) {
 				tabPane.showHelp()
