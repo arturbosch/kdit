@@ -1,7 +1,6 @@
 package io.gitlab.arturbosch.kdit.project
 
 import io.gitlab.arturbosch.kdit.editor.EditorPane
-import io.gitlab.arturbosch.kdit.editor.util.FileEndings
 import javafx.event.EventHandler
 import javafx.scene.control.TreeItem
 import javafx.scene.control.TreeView
@@ -41,10 +40,7 @@ class Explorer(val projectPath: Path, val editorPane: EditorPane) : TreeView<Str
 	}
 
 	private fun handle(item: TreeItem<String>) {
-		val pathToOpen = (item as FileEntry).path
-		if (FileEndings.isSupported(pathToOpen)) {
-			editorPane.newTab(pathToOpen)
-		}
+		editorPane.newTab((item as FileEntry).path)
 	}
 
 	private fun handleMouseClicked(event: MouseEvent) {

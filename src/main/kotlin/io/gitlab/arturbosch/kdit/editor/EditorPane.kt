@@ -1,5 +1,6 @@
 package io.gitlab.arturbosch.kdit.editor
 
+import io.gitlab.arturbosch.kdit.editor.util.FileEndings
 import io.gitlab.arturbosch.kdit.editor.util.HELP_TEXT
 import io.gitlab.arturbosch.kdit.editor.util.notNull
 import io.gitlab.arturbosch.kdit.editor.util.onlyIfNull
@@ -38,13 +39,15 @@ class EditorPane(val editor: Editor) : TabPane() {
 	}
 
 	fun newTab(path: Path) {
-		val maybeTab = openTabs().find { path == it.path }
-		if (maybeTab == null) {
-			createNewTabInBackground {
-				EditorTab(path = path)
+		if (FileEndings.isSupported(path)) {
+			val maybeTab = openTabs().find { path == it.path }
+			if (maybeTab == null) {
+				createNewTabInBackground {
+					EditorTab(path = path)
+				}
+			} else {
+				focus(maybeTab)
 			}
-		} else {
-			focus(maybeTab)
 		}
 	}
 
