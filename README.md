@@ -40,3 +40,8 @@ It is highly recommend to create a shell script in /bin to start kdit from conso
 ## Credits
 
 File and Folder icons are used from https://github.com/Keyamoon/IcoMoon-Free.
+CodeArea component is from https://github.com/TomasMikula/RichTextFX
+
+## Known Issues
+
+- When using to many shortkeys manipulating text, the undo manager throws exceptions.
