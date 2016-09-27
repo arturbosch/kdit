@@ -12,7 +12,8 @@ const val HELP_TEXT: String =
 				"Ctrl+Alt+Right - Switch to right tab \n" +
 				"Ctrl+T - New tab \n" +
 				"Ctrl+W - Close current tab \n" +
-				"Ctrl+H - Open a help tab \n\n" +
+				"Ctrl+H - Open a help tab \n" +
+				"Ctrl+E - Switch to project explorer if a project is open \n\n" +
 
 				"Ctrl+O - Open a file \n" +
 				"Ctrl+Shift+O - Open a project (Not supported yet) \n" +

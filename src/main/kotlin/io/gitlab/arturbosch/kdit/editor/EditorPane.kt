@@ -27,41 +27,11 @@ class EditorPane(val editor: Editor) : TabPane() {
 		showHelp()
 	}
 
-	fun openProject(project: Path) {
-		editor.registerProjectExplorer(project)
-	}
-
-	fun switchTabLeft() {
-		selectionModel.selectPrevious()
-		focus(selectionModel.selectedItem)
-	}
-
-	fun switchTabRight() {
-		selectionModel.selectNext()
-		focus(selectionModel.selectedItem)
-	}
-
 	fun switchFocus() {
 		if (isFocused) {
 			focus(selectionModel.selectedItem)
 		} else {
 			requestFocus()
-		}
-	}
-
-	fun focus(tab: Tab) {
-		this.selectionModel.select(tab)
-		if (tab is EditorTab) {
-			tab.requestFocus()
-			title = "$KDIT_NAME - ${retrieveTabName(tab)}"
-		}
-	}
-
-	fun showHelp() {
-		tabs.find { it.text == "Help" }.onlyIfNull {
-			createNewTabInBackground {
-				EditorTab(name = "Help", editable = false, content = HELP_TEXT)
-			}
 		}
 	}
 
@@ -76,23 +46,57 @@ class EditorPane(val editor: Editor) : TabPane() {
 		}
 	}
 
-	fun closeCurrentTab() {
+	internal fun openProject(project: Path) {
+		editor.registerProjectExplorer(project)
+	}
+
+	internal fun switchToExplorer() {
+		editor.switchToExplorer()
+	}
+
+	internal fun switchTabLeft() {
+		selectionModel.selectPrevious()
+		focus(selectionModel.selectedItem)
+	}
+
+	internal fun switchTabRight() {
+		selectionModel.selectNext()
+		focus(selectionModel.selectedItem)
+	}
+
+	internal fun focus(tab: Tab) {
+		this.selectionModel.select(tab)
+		if (tab is EditorTab) {
+			tab.requestFocus()
+			title = "$KDIT_NAME - ${retrieveTabName(tab)}"
+		}
+	}
+
+	internal fun showHelp() {
+		tabs.find { it.text == "Help" }.onlyIfNull {
+			createNewTabInBackground {
+				EditorTab(name = "Help", editable = false, content = HELP_TEXT)
+			}
+		}
+	}
+
+	internal fun closeCurrentTab() {
 		tabs.remove(selectionModel.selectedItem)
 	}
 
-	fun saveTab() {
+	internal fun saveTab() {
 		findOpenTab().save()
 	}
 
-	fun saveAsNewPath() {
+	internal fun saveAsNewPath() {
 		findOpenTab().saveAs()
 	}
 
-	fun saveEditedTabs() {
+	internal fun saveEditedTabs() {
 		openTabs().filterNot { it.path == null }.forEach { it.save() }
 	}
 
-	fun reloadTabIfFileEndingsChanges(savePath: Path) {
+	internal fun reloadTabIfFileEndingsChanges(savePath: Path) {
 		val openTab = findOpenTab()
 		tabs.remove(openTab)
 		openTabs().filter { savePath == it.path }
@@ -102,7 +106,7 @@ class EditorPane(val editor: Editor) : TabPane() {
 		}
 	}
 
-	fun closeTabsWithSamePathAsThis(tab: EditorTab, path: Path) {
+	internal fun closeTabsWithSamePathAsThis(tab: EditorTab, path: Path) {
 		openTabs().filter { path == it.path }
 				.filter { tab != it }
 				.forEach { tabs.remove(it) }

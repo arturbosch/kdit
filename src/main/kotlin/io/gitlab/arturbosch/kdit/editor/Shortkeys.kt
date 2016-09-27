@@ -51,6 +51,9 @@ fun EditorPane.registerShortKeys() {
 			},
 			consume(EventPattern.keyPressed(KeyCode.O, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN)) {
 				ProjectChooser.openDir().ifPresent { tabPane.openProject(it) }
+			},
+			consume(EventPattern.keyPressed(KeyCode.E, KeyCombination.CONTROL_DOWN)) {
+				tabPane.switchToExplorer()
 			}
 	))
 }

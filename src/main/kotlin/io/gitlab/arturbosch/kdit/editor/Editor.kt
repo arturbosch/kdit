@@ -52,4 +52,8 @@ class Editor : View() {
 			}
 		}
 	}
+
+	fun switchToExplorer() {
+		projectExplorer?.requestFocus()
+	}
 }
