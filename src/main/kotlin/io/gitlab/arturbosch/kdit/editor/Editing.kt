@@ -8,40 +8,30 @@ import org.fxmisc.richtext.model.NavigationActions
  * @author Artur Bosch
  */
 
-
 fun CodeArea.moveLineUp() {
-	val oldIndex = currentParagraph
-	val index = if (currentParagraph == 0) 0 else currentParagraph - 1
-	moveLine(index)
-//	replaceSelection("\n")
-//	moveTo(oldIndex - 2, 0)
-//	deletePreviousChar()
-//	previousChar(NavigationActions.SelectionPolicy.CLEAR)
-//	deleteText(oldIndex, oldIndex)
+	val newIndex = if (currentParagraph == 0) 0 else currentParagraph - 1
+	moveLine(newIndex)
 }
 
 fun CodeArea.moveLineDown() {
-	val index = if (currentParagraph == paragraphs.size - 1) paragraphs.size - 1 else currentParagraph + 1
-//	val thisIndex = currentParagraph
-//	val nextIndex = currentParagraph + 1
-//	val thisParagraph = subDocument(thisIndex)
-//	val belowParagraph = subDocument(nextIndex)
-//	val posNext = getAbsolutePosition(nextIndex, 0)
-//	val posThis = getAbsolutePosition(thisIndex, 0)
-//	deleteText(posNext, posNext)
-//	deleteText(posThis, posThis)
-//	replace(posNext, posNext, thisParagraph)
-//	replace(posThis, posThis, belowParagraph)
-	moveLine(index)
-//	moveTo(currentParagraph - 2, 0)
-//	deletePreviousChar()
-//	deleteLine()
+	val newIndex = if (currentParagraph == paragraphs.size - 1) paragraphs.size - 1 else currentParagraph + 1
+	moveLine(newIndex)
 }
 
 private fun CodeArea.moveLine(index: Int) {
+	val startIndex = currentParagraph
+	val startColumn = caretColumn
 	val pos = getAbsolutePosition(index, 0)
 	selectLine()
 	moveSelectedText(pos)
+	selectRange(currentParagraph, caretColumn, currentParagraph, paragraphs[currentParagraph].length())
+	val selection = selection
+	if (selection.length > 0) {
+		cut()
+		moveTo(startIndex, 0)
+		paste()
+	}
+	moveTo(index, startColumn)
 }
 
 fun CodeArea.nextPage() {

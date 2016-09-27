@@ -25,6 +25,8 @@ const val HELP_TEXT: String =
 				"Ctrl+/ - Comment/Uncomment current line \n" +
 				"Shift+Enter - Add newline not breaking current line \n\n" +
 
+				"Alt+Up - Move current line up \n" +
+				"Alt+Down - Move current line down \n" +
 				"Ctrl+Up - Navigate one paragraph up \n" +
 				"Ctrl+Down - Navigate one paragraph down \n" +
 				"Ctrl+Shift+Up - Navigate one page up \n" +
