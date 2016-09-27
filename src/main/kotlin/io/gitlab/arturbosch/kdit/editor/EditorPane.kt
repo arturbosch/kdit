@@ -1,7 +1,9 @@
 package io.gitlab.arturbosch.kdit.editor
 
 import io.gitlab.arturbosch.kdit.editor.util.HELP_TEXT
+import io.gitlab.arturbosch.kdit.editor.util.notNull
 import io.gitlab.arturbosch.kdit.editor.util.onlyIfNull
+import io.gitlab.arturbosch.kdit.editor.util.registerShortKeys
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.Tab
 import javafx.scene.control.TabPane
@@ -81,7 +83,11 @@ class EditorPane(val editor: Editor) : TabPane() {
 	}
 
 	internal fun closeCurrentTab() {
-		tabs.remove(selectionModel.selectedItem)
+		val tab = selectionModel.selectedItem
+		if (tab.notNull()) {
+			val editorTab = tab as EditorTab
+			tabs.remove(editorTab)
+		}
 	}
 
 	internal fun saveTab() {

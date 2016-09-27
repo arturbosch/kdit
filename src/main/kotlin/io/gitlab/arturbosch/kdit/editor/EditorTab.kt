@@ -3,7 +3,7 @@ package io.gitlab.arturbosch.kdit.editor
 import io.gitlab.arturbosch.kdit.editor.util.Comments
 import io.gitlab.arturbosch.kdit.editor.util.FileEndings
 import io.gitlab.arturbosch.kdit.editor.util.ProjectChooser
-import io.gitlab.arturbosch.kdit.editor.registerShortKeys
+import io.gitlab.arturbosch.kdit.editor.util.registerShortKeys
 import io.gitlab.arturbosch.kdit.editor.util.replaceLast
 import io.gitlab.arturbosch.kdit.highlightings.StyleSheets
 import io.gitlab.arturbosch.kdit.highlightings.syntax
@@ -49,12 +49,12 @@ class EditorTab(val name: String = "New Tab..", val content: String = "",
 			registerShortKeys(this@EditorTab)
 			isEditable = editable
 			replaceText(content)
+			moveTo(0)
+			undoManager.forgetHistory()
+			undoManager.mark()
 		}
 		this.add(StackPane(VirtualizedScrollPane(codeArea)))
 		requestFocus()
-		codeArea.moveTo(0)
-		codeArea.undoManager.forgetHistory()
-		codeArea.undoManager.mark()
 	}
 
 	private fun CodeArea.enableHighlighting(path: Path?) {
@@ -174,4 +174,5 @@ class EditorTab(val name: String = "New Tab..", val content: String = "",
 			println("Save failed for path: $path")
 		}
 	}
+
 }
