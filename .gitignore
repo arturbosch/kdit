@@ -155,3 +155,4 @@ sympy-plots-for-*.tex/
 target/
 
 /classes/
+/out/
