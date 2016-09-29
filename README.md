@@ -13,6 +13,7 @@ Ctrl+Alt+Right - Switch to right tab
 Ctrl+T - New tab  
 Ctrl+W - Close current tab  
 Ctrl+H - Open a help tab  
+Ctrl+E - Switch to project explorer if a project is open  
 
 Ctrl+O - Open a file  
 Ctrl+Shift+O - Open a project (Not supported yet)  
@@ -21,9 +22,15 @@ Ctrl+Shift+A - Save current file as ..
 
 Ctrl+K - Delete line  
 Ctrl+D - Duplicate line  
+Ctrl+/ - Comment/Uncomment current line  
+Shift+Enter - Add newline not breaking current line  
+
+Alt+Up - Move current line up  
+Alt+Down - Move current line down  
 Ctrl+Up - Navigate one paragraph up  
 Ctrl+Down - Navigate one paragraph down  
-Shift+Enter - Add newline not breaking current line  
+Ctrl+Shift+Up - Navigate one page up  
+Ctrl+Shift+Down - Navigate one page down  
 
 ## Build/Execution
 
