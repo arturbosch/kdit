@@ -5,6 +5,8 @@ powered by JavaFX. Supports syntax highlighting for Kotlin, Java, Groovy
 and for some elements of XML and Markdown. Uses _TornadoFX_ for easier
 UI building and _RichTextFX_ for code areas.
 
+![kdit](img/kdit.png "Kdit - Editor")
+
 ## Shortkeys
 
 ESC - Switch between tab pane and current tab

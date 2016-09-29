@@ -1,0 +1,21 @@
+
+.headers {
+    -fx-fill: cornflowerblue;
+}
+
+.links {
+    -fx-fill: cadetblue;
+    -fx-font-weight: bold;
+}
+
+.bold {
+    -fx-font-weight: bold;
+}
+
+.emph {
+    -fx-font-style: italic;
+}
+
+.code {
+    -fx-fill: indianred;
+}

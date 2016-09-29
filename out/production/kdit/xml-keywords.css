@@ -1,0 +1,16 @@
+
+.attribute {
+    -fx-fill: blue;
+}
+
+.comment {
+    -fx-fill: grey;
+}
+
+.string {
+    -fx-fill: green;
+}
+
+.node {
+     -fx-fill: darkblue;
+}
