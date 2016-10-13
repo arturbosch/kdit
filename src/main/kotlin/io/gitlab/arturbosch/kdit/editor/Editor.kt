@@ -43,7 +43,7 @@ class Editor : View() {
 	}
 
 	private fun bindTitle() {
-		this@Editor.titleProperty.bind(this.titleProperty)
+		titleProperty.bind(editorPane.titleProperty)
 	}
 
 	private fun parseArguments() {
