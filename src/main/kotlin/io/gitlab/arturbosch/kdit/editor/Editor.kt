@@ -4,6 +4,7 @@ import io.gitlab.arturbosch.kdit.editor.util.editorPane
 import io.gitlab.arturbosch.kdit.project.Explorer
 import javafx.scene.layout.Priority
 import javafx.scene.layout.VBox
+import tornadofx.FX
 import tornadofx.View
 import tornadofx.add
 import tornadofx.borderpane
@@ -12,7 +13,9 @@ import tornadofx.left
 import tornadofx.success
 import tornadofx.task
 import tornadofx.top
+import java.nio.file.Files
 import java.nio.file.Path
+import java.nio.file.Paths
 
 /**
  * @author Artur Bosch
@@ -28,15 +31,41 @@ class Editor : View() {
 		}
 		center {
 			editorPane(this@Editor) {
-				bindTitle()
 				editorPane = this
 				VBox.setVgrow(this, Priority.ALWAYS)
 			}
 		}
 	}
 
-	private fun EditorPane.bindTitle() {
+	override fun onDock() {
+		bindTitle()
+		parseArguments()
+	}
+
+	private fun bindTitle() {
 		this@Editor.titleProperty.bind(this.titleProperty)
+	}
+
+	private fun parseArguments() {
+		val args = FX.application.parameters.raw
+		if (args.size > 0) {
+			val path = Paths.get(args[0])
+			startWithPath(path)
+		} else {
+			editorPane.showHelp()
+		}
+	}
+
+	private fun startWithPath(path: Path) {
+		if (Files.exists(path)) {
+			if (Files.isDirectory(path)) {
+				registerProjectExplorer(path)
+			} else {
+				editorPane.newTab(path)
+			}
+		} else {
+			editorPane.showHelp()
+		}
 	}
 
 	fun registerProjectExplorer(path: Path) {

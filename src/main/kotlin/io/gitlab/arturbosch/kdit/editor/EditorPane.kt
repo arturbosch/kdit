@@ -27,7 +27,6 @@ class EditorPane(val editor: Editor) : TabPane() {
 
 	init {
 		registerShortKeys()
-		showHelp()
 	}
 
 	fun switchFocus() {
