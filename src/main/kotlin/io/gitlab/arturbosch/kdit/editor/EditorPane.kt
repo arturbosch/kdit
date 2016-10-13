@@ -30,10 +30,12 @@ class EditorPane(val editor: Editor) : TabPane() {
 	}
 
 	fun switchFocus() {
-		if (isFocused) {
-			focus(selectionModel.selectedItem)
-		} else {
-			requestFocus()
+		selectionModel.selectedItem?.run {
+			if (isFocused) {
+				focus(this)
+			} else {
+				requestFocus()
+			}
 		}
 	}
 
