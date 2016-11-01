@@ -17,7 +17,7 @@ object FileEndings {
 		return if (contentType.startsWith("text")) true
 		else if (contentType.startsWith("application")) {
 			return when (contentType.substringAfter("/")) {
-				"xml", "json", "html" -> true
+				"x-yaml", "yaml", "xml", "json", "html" -> true
 				else -> false
 			}
 		} else false
