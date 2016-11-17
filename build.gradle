@@ -22,12 +22,33 @@ group 'io.gitlab.arturbosch.kdit'
 version '1.0-M2'
 mainClassName = 'io.gitlab.arturbosch.kdit.Kdit'
 
+configurations {
+	detekt
+}
+
 repositories {
 	mavenCentral()
+	mavenLocal()
+	maven {
+		url  "http://dl.bintray.com/arturbosch/code-analysis"
+	}
 }
 
 dependencies {
 	compile 'org.fxmisc.richtext:richtextfx:0.7-M2'
 	compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 	compile 'no.tornado:tornadofx:1.5.5'
+	detekt 'io.gitlab.arturbosch.detekt:detekt-cli:1.0.0.M3'
+}
+
+
+task detekt(type: JavaExec) {
+	main = "io.gitlab.arturbosch.detekt.cli.Main"
+	classpath = configurations.detekt
+	def input = "$project.projectDir.absolutePath"
+	def config = "$project.projectDir/detekt.yml"
+	def filters = ".*test.*"
+	def rulesets = ""
+	def params = [ '-p', input, '-c', config, '-f', filters, '-r', rulesets]
+	args(params)
 }

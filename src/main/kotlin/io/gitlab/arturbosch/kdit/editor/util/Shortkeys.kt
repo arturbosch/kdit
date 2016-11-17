@@ -103,5 +103,3 @@ fun CodeArea.registerShortKeys(tab: EditorTab) {
 	))
 }
 
-
-

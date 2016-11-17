@@ -19,7 +19,6 @@ val MD_PATTERN: Pattern = Pattern.compile(
 				+ "|(?<CODE>" + MD_CODE + ")"
 				+ "|(?<LINKS>" + MD_LINKS + ")")
 
-
 fun mdMatching(matcher: Matcher): String? {
 	return (if (matcher.group("HEADERS") != null)
 		"headers"

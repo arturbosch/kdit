@@ -17,7 +17,6 @@ val XML_PATTERN: Pattern = Pattern.compile(
 				+ "|(?<STRING>" + XML_STRING + ")"
 				+ "|(?<ATTRIBUTE>" + XML_ATTRIBUTE + ")")
 
-
 fun xmlMatching(matcher: Matcher): String? {
 	return (if (matcher.group("COMMENT") != null)
 		"comment"
