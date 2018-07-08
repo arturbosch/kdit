@@ -18,7 +18,7 @@ class FileEntry(val path: Path) : TreeItem<String>() {
 		private val FILE_IMAGE = ::FileEntry.javaClass.getResource("/file.png").toString()
 	}
 
-	val isDirectory: Boolean = if (Files.isDirectory(path)) true else false
+	val isDirectory: Boolean = Files.isDirectory(path)
 
 	init {
 		value = path.fileName.toString()

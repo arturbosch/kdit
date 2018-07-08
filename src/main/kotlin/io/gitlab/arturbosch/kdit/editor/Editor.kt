@@ -6,7 +6,6 @@ import javafx.scene.layout.Priority
 import javafx.scene.layout.VBox
 import tornadofx.FX
 import tornadofx.View
-import tornadofx.add
 import tornadofx.borderpane
 import tornadofx.center
 import tornadofx.left

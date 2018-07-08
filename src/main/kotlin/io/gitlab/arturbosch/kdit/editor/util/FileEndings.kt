@@ -14,13 +14,14 @@ object FileEndings {
 
 	fun isSupported(path: Path): Boolean {
 		val contentType = Files.probeContentType(path)
-		return if (contentType.startsWith("text")) true
-		else if (contentType.startsWith("application")) {
-			return when (contentType.substringAfter("/")) {
+		return when {
+			contentType.startsWith("text") -> true
+			contentType.startsWith("application") -> return when (contentType.substringAfter("/")) {
 				"x-yaml", "yaml", "xml", "json", "html" -> true
 				else -> false
 			}
-		} else false
+			else -> false
+		}
 	}
 
 }

@@ -12,7 +12,8 @@ import java.nio.file.Path
  * @author Artur Bosch
  */
 
-fun EventTarget.editorPane(editor: Editor, op: (EditorPane.() -> Unit)? = null) = opcr(this, EditorPane(editor), op)
+fun EventTarget.editorPane(editor: Editor, op: EditorPane.() -> Unit) =
+		opcr(this, EditorPane(editor), op)
 
 fun TabPane.editorTab(name: String = "", content: String = "",
 					  path: Path? = null, editable: Boolean = true,
@@ -23,7 +24,7 @@ fun TabPane.editorTab(name: String = "", content: String = "",
 	return tab
 }
 
-fun Any?.notNull(): Boolean = if (this != null) true else false
+fun Any?.notNull(): Boolean = this != null
 
 inline fun <T, R> T.onlyIfNull(block: T?.() -> R) {
 	if (this == null) {

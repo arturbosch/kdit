@@ -13,7 +13,7 @@ import java.util.Stack
 /**
  * @author Artur Bosch
  */
-class Explorer(val projectPath: Path, val editorPane: EditorPane) : TreeView<String>() {
+class Explorer(val projectPath: Path, private val editorPane: EditorPane) : TreeView<String>() {
 
 	init {
 		root = FileEntry(projectPath)

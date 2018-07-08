@@ -5,7 +5,7 @@ package io.gitlab.arturbosch.kdit.editor.util
  */
 
 const val HELP_TEXT: String =
-		"Shortkeys:\n\n" +
+		"Short Keys:\n\n" +
 
 				"ESC - Switch between tab pane and current tab \n" +
 				"Ctrl+Alt+Left - Switch to left tab \n" +

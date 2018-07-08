@@ -2,7 +2,7 @@ package io.gitlab.arturbosch.kdit.editor
 
 import io.gitlab.arturbosch.kdit.editor.util.Defaults
 import org.fxmisc.richtext.CodeArea
-import org.fxmisc.richtext.model.NavigationActions
+import org.fxmisc.richtext.NavigationActions
 
 /**
  * @author Artur Bosch

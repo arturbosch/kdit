@@ -64,7 +64,7 @@ class EditorTab(val name: String = "New Tab..", val content: String = "",
 				stylesheets.add(this)
 				richChanges()
 						.filter { ch -> ch.inserted != ch.removed }
-						.subscribe { change -> setStyleSpans(0, syntax(text, path)) }
+						.subscribe { _ -> setStyleSpans(0, syntax(text, path)) }
 			}
 		}
 	}
@@ -81,7 +81,7 @@ class EditorTab(val name: String = "New Tab..", val content: String = "",
 
 	private fun determineTabName(path: Path) {
 		val savedTitle = path.fileName.toString()
-		val unsavedTitle = "*" + savedTitle
+		val unsavedTitle = "*$savedTitle"
 		text = if (codeArea.undoManager.isAtMarkedPosition) savedTitle else unsavedTitle
 		tooltip = Tooltip(path.toString())
 		EventStreams.valuesOf(codeArea.undoManager.atMarkedPositionProperty())
@@ -148,12 +148,10 @@ class EditorTab(val name: String = "New Tab..", val content: String = "",
 	}
 
 	private fun checkStyleAfterFileChange(it: Path, oldPath: Path?) {
-		if (oldPath == null) {
-			enableStyleAfterSave(it)
-		} else if (FileEndings.isSame(it, oldPath).not()) {
-			(tabPane as EditorPane).reloadTabIfFileEndingsChanges(it)
-		} else {
-			(tabPane as EditorPane).closeTabsWithSamePathAsThis(this, it)
+		when {
+			oldPath == null -> enableStyleAfterSave(it)
+			FileEndings.isSame(it, oldPath).not() -> (tabPane as EditorPane).reloadTabIfFileEndingsChanges(it)
+			else -> (tabPane as EditorPane).closeTabsWithSamePathAsThis(this, it)
 		}
 	}
 

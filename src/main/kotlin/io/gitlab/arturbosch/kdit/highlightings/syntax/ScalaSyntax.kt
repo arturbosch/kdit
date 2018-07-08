@@ -2,10 +2,6 @@ package io.gitlab.arturbosch.kdit.highlightings.syntax
 
 import java.util.regex.Pattern
 
-/**
- * @author Artur Bosch
- */
-
 private val KEYWORDS_SCALA = arrayOf(
 		"abstract",
 		"case",

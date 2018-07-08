@@ -39,10 +39,10 @@ private fun computeHighlighting(text: String, pattern: Pattern,
 	val spansBuilder = StyleSpansBuilder<Collection<String>>()
 	while (matcher.find()) {
 		val styleClass: String? = groupMatching.invoke(matcher)!!
-		spansBuilder.add(emptyList<String>(), matcher.start() - lastKwEnd)
+		spansBuilder.add(emptyList(), matcher.start() - lastKwEnd)
 		spansBuilder.add(setOf(styleClass ?: ""), matcher.end() - matcher.start())
 		lastKwEnd = matcher.end()
 	}
-	spansBuilder.add(emptyList<String>(), text.length - lastKwEnd)
+	spansBuilder.add(emptyList(), text.length - lastKwEnd)
 	return spansBuilder.create()
 }

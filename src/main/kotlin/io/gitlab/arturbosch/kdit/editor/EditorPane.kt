@@ -18,11 +18,11 @@ import java.nio.file.Path
  */
 class EditorPane(val editor: Editor) : TabPane() {
 
-	val KDIT_NAME = "kdit"
-	val titleProperty = SimpleStringProperty(KDIT_NAME)
+	private val name = "kdit"
+	val titleProperty = SimpleStringProperty(name)
 
-	var title: String
-		get() = titleProperty.get() ?: KDIT_NAME
+	private var title: String
+		get() = titleProperty.get() ?: name
 		set(value) = titleProperty.set(value)
 
 	init {
@@ -74,7 +74,7 @@ class EditorPane(val editor: Editor) : TabPane() {
 		this.selectionModel.select(tab)
 		if (tab is EditorTab) {
 			tab.requestFocus()
-			title = "$KDIT_NAME - ${retrieveTabName(tab)}"
+			title = "$name - ${retrieveTabName(tab)}"
 		}
 	}
 
